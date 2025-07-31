@@ -7,14 +7,14 @@ import GlobalBackgroundProvider from '@/components/GlobalBackgroundProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'JBEL INDUSTRY - Boutique en ligne',
-  description: 'JBEL INDUSTRY - Votre boutique en ligne. Produits de qualité et livraison rapide.',
+  title: 'CALITEK - Boutique Technologique',
+  description: 'CALITEK - Votre partenaire technologique. Innovation et qualité au meilleur prix.',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
   themeColor: '#000000',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'JBEL INDUSTRY'
+    title: 'CALITEK'
   },
   formatDetection: {
     telephone: false

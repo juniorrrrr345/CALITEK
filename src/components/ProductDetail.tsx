@@ -54,8 +54,8 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
     });
 
   return (
-    <div className="fixed inset-0 bg-black z-[10000] overflow-hidden">
-      <div className="h-full overflow-y-auto overscroll-contain pb-20">
+    <div className="fixed inset-0 bg-black/95 z-[10000] overflow-hidden">
+      <div className="h-full overflow-y-auto overscroll-contain pb-32">
         {/* Header avec bouton retour - responsive */}
         <div className="sticky top-0 bg-black/95 backdrop-blur-sm p-3 sm:p-4 flex items-center justify-between border-b border-white/20 z-10">
         <button

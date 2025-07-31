@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '../components/Header';
-// Redéploiement forcé - Nouveau chargement JBEL INDUSTRY
+// Redéploiement forcé - Nouveau chargement CALITEK
 import CategoryFilter from '../components/CategoryFilter';
 import ProductCard, { Product } from '../components/ProductCard';
 import ProductDetail from '../components/ProductDetail';
@@ -218,30 +218,52 @@ export default function HomePage() {
 
   // Écran de chargement avec fond de thème de la boutique
   if (loading) {
+    const loadingText = 'Préparation en cours...';
     return (
       <div className="main-container">
         <div className="global-overlay"></div>
         <div className="content-layer">
           <div className="min-h-screen flex items-center justify-center p-4">
             <div className="text-center bg-black/60 backdrop-blur-md rounded-3xl p-8 sm:p-12 max-w-lg mx-auto border border-white/20">
-              {/* Logo animé moderne */}
-              <div className="mb-8">
-                <div className="relative w-40 h-40 mx-auto">
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-2xl opacity-70 animate-pulse"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-xl opacity-50 animate-ping"></div>
-                  <div className="relative z-10 w-full h-full flex items-center justify-center">
-                    <span className="text-8xl animate-bounce filter drop-shadow-2xl">🔥</span>
+              {/* Icône de chargement avec effet 3D */}
+              <div className="relative w-32 h-32 mb-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full blur-2xl opacity-70 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-xl opacity-50 animate-ping"></div>
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                  {/* Option 2: Points de chargement */}
+                  <div className="flex space-x-2">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="w-4 h-4 bg-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                   </div>
+                  
+                  {/* Option 1: Cercles rotatifs (commenté)
+                  <div className="relative">
+                    <div className="w-24 h-24 border-4 border-gray-300 rounded-full"></div>
+                    <div className="absolute top-0 left-0 w-24 h-24 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
+                    <div className="absolute top-2 left-2 w-20 h-20 border-4 border-cyan-500 rounded-full border-t-transparent animate-spin-slow"></div>
+                  </div>
+                  */}
+                  
+                  {/* Option 3: Barres de chargement (commenté)
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-16 bg-blue-500 animate-pulse" style={{ animationDelay: '0s' }}></div>
+                    <div className="w-2 h-16 bg-cyan-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-16 bg-blue-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="w-2 h-16 bg-cyan-500 animate-pulse" style={{ animationDelay: '0.6s' }}></div>
+                  </div>
+                  */}
                 </div>
               </div>
               
               {/* Titre avec effet néon et ombre */}
-              <h1 className="text-5xl sm:text-7xl font-black mb-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-transparent bg-clip-text animate-pulse drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]">
-                JBEL INDUSTRY
+              <h1 className="text-5xl sm:text-7xl font-black mb-4 text-black drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]">
+                CALITEK
               </h1>
               
-              <p className="text-2xl text-white mb-8 font-semibold drop-shadow-lg">
-                Préparation en cours...
+              {/* Texte de chargement animé */}
+              <p className="text-xl sm:text-2xl font-medium text-black/80 animate-pulse">
+                {loadingText}
               </p>
               
               {/* Nouvelle barre de chargement 3D */}
