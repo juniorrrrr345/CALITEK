@@ -39,11 +39,26 @@ export default function HomePage() {
   
   // États pour les données - Initialiser avec des valeurs par défaut
   const [loading, setLoading] = useState(true); // Toujours true au départ
+  const [backgroundImage, setBackgroundImage] = useState<string>(''); // Ajouter l'état pour backgroundImage
   
   // Gérer la logique de première visite côté client uniquement
   useEffect(() => {
     // Vérifier si c'est la première visite
     const hasVisited = sessionStorage.getItem('hasVisited');
+    
+    // Charger l'image de fond depuis localStorage si disponible
+    const savedSettings = localStorage.getItem('shopSettings');
+    if (savedSettings) {
+      try {
+        const settings = JSON.parse(savedSettings);
+        if (settings.backgroundImage) {
+          setBackgroundImage(settings.backgroundImage);
+        }
+      } catch (error) {
+        console.error('Erreur parsing settings:', error);
+      }
+    }
+    
     if (hasVisited) {
       // Si déjà visité, cacher le chargement immédiatement
       setLoading(false);
@@ -68,6 +83,11 @@ export default function HomePage() {
           
           // Sauvegarder dans localStorage pour les prochaines visites
           localStorage.setItem('shopSettings', JSON.stringify(settings));
+          
+          // Mettre à jour l'image de fond
+          if (settings.backgroundImage) {
+            setBackgroundImage(settings.backgroundImage);
+          }
           
           // Appliquer le thème immédiatement
           if (settings.backgroundImage) {
