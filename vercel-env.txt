@@ -1,0 +1,11 @@
+# Variables d'environnement pour Vercel
+# Copiez et collez ces variables dans Vercel > Settings > Environment Variables
+
+MONGODB_URI=mongodb+srv://calitkekj:mBPviTkb8X2Wqasb@calitek.vuwxigi.mongodb.net/?retryWrites=true&w=majority&appName=calitek
+CLOUDINARY_URL=cloudinary://819599378662878:XZ4-vYj9x2hK9XCjofKQIKGJIqI@dz179lycp
+CLOUDINARY_CLOUD_NAME=dz179lycp
+CLOUDINARY_API_KEY=819599378662878
+CLOUDINARY_API_SECRET=XZ4-vYj9x2hK9XCjofKQIKGJIqI
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=calitek2024
+NEXTAUTH_SECRET=calitek_secret_key_2024_secure_random_string
