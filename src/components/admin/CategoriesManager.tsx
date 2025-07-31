@@ -130,7 +130,7 @@ export default function CategoriesManager() {
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center">
-        <div className="text-white">Chargement...</div>
+        <div className="text-white">Chargement</div>
       </div>
     );
   }

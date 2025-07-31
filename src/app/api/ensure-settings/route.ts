@@ -18,7 +18,7 @@ export async function GET() {
         shopTitle: 'CALITEK',
         shopSubtitle: 'Votre boutique technologique',
         scrollingText: '🚀 CALITEK - TECHNOLOGIE DE POINTE 📲 • LIVRAISON RAPIDE 🚚 • SUPPORT 24/7 💬',
-        loadingText: 'Chargement CALITEK...',
+        loadingText: 'Chargement CALITEK',
         bannerText: '🎉 Bienvenue chez CALITEK - Votre partenaire technologique ! 🎉',
         backgroundImage: '',
         backgroundOpacity: 20,

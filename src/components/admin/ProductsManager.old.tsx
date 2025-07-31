@@ -55,7 +55,7 @@ export default function ProductsManager() {
       console.log('🔄 Début du chargement des données...');
       
       // Charger les produits
-      console.log('📦 Chargement des produits...');
+      console.log('📦 Chargement des produits');
       const productsRes = await fetch('/api/products');
       console.log('📦 Réponse produits:', productsRes.status);
       if (productsRes.ok) {
@@ -178,7 +178,7 @@ export default function ProductsManager() {
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center">
-        <div className="text-white">Chargement...</div>
+        <div className="text-white">Chargement</div>
       </div>
     );
   }

@@ -22,7 +22,7 @@ export default function PagesManager() {
   const loadPages = async () => {
     try {
       setIsLoading(true);
-      console.log('📄 Chargement des pages...');
+      console.log('📄 Chargement des pages');
       
       const [infoRes, contactRes] = await Promise.all([
         fetch('/api/pages/info').catch(err => {
@@ -150,7 +150,7 @@ export default function PagesManager() {
       <div className="bg-black/50 backdrop-blur-md rounded-lg p-6 border border-white/10">
         <div className="text-center py-8">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
-          <p className="text-gray-400 mt-4">Chargement des pages...</p>
+          <p className="text-gray-400 mt-4">Chargement des pages</p>
         </div>
       </div>
     );
