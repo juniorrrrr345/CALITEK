@@ -15,6 +15,21 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState('menu');
   const router = useRouter();
   
+  // Sauvegarder la position de défilement
+  const saveScrollPosition = () => {
+    const scrollY = window.scrollY;
+    sessionStorage.setItem('productScrollPosition', scrollY.toString());
+  };
+  
+  // Restaurer la position de défilement
+  const restoreScrollPosition = () => {
+    const savedPosition = sessionStorage.getItem('productScrollPosition');
+    if (savedPosition) {
+      window.scrollTo(0, parseInt(savedPosition));
+      sessionStorage.removeItem('productScrollPosition');
+    }
+  };
+  
   // Précharger les autres pages pour navigation instantanée
   useEffect(() => {
     router.prefetch('/info');
@@ -32,6 +47,10 @@ export default function HomePage() {
     if (hasVisited) {
       // Si déjà visité, cacher le chargement immédiatement
       setLoading(false);
+      // Restaurer la position de défilement si on revient d'un produit
+      setTimeout(() => {
+        restoreScrollPosition();
+      }, 100);
     } else {
       // Si première visite, marquer comme visité
       sessionStorage.setItem('hasVisited', 'true');
@@ -340,7 +359,10 @@ export default function HomePage() {
                       <ProductCard
                         key={product._id}
                         product={product}
-                        onClick={() => setSelectedProduct(product)}
+                        onClick={() => {
+                          setSelectedProduct(product);
+                          saveScrollPosition(); // Sauvegarder la position avant de naviguer
+                        }}
                       />
                     ))}
                   </div>
