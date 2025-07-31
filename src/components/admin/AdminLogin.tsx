@@ -83,7 +83,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
               disabled={loading || !password}
               className="w-full bg-white hover:bg-gray-100 disabled:bg-gray-600 text-black font-bold py-3 px-4 rounded-lg transition-colors"
             >
-              {loading ? '⏳ Connexion...' : '🚀 Se connecter'}
+              {loading ? '⏳ Connexion' : '🚀 Se connecter'}
             </button>
           </form>
 

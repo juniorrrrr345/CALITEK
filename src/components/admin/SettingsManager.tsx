@@ -113,7 +113,7 @@ export default function SettingsManager() {
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center">
-        <div className="text-white">Chargement...</div>
+        <div className="text-white">Chargement</div>
       </div>
     );
   }
@@ -129,7 +129,7 @@ export default function SettingsManager() {
           className="bg-white hover:bg-gray-100 disabled:bg-gray-600 text-black font-medium sm:font-bold py-1.5 sm:py-2 px-3 sm:px-4 rounded-md sm:rounded-lg flex items-center gap-1 sm:gap-2 w-full sm:w-auto text-xs sm:text-sm md:text-base transition-all"
         >
           <span>💾</span>
-          <span>{saving ? 'Sauvegarde...' : 'Sauvegarder'}</span>
+          <span>{saving ? 'Sauvegarde' : 'Sauvegarder'}</span>
         </button>
       </div>
 
@@ -276,7 +276,7 @@ export default function SettingsManager() {
                 value={settings.scrollingText}
                 onChange={(e) => updateField('scrollingText', e.target.value)}
                 className="w-full bg-gray-800 border border-white/20 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white"
-                placeholder="NOUVEAU ! Livraison express disponible..."
+                placeholder="NOUVEAU ! Livraison express disponible"
               />
               <p className="text-gray-500 text-xs mt-1">
                 Texte qui défile de droite à gauche en haut de la page

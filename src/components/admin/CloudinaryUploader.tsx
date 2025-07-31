@@ -30,7 +30,7 @@ export default function CloudinaryUploader({
 
     setUploading(true);
     setError('');
-    setProgress('Préparation upload...');
+    setProgress('Préparation upload');
 
     try {
       console.log('🚀 Début upload Cloudinary:', {
@@ -39,7 +39,7 @@ export default function CloudinaryUploader({
         size: Math.round(file.size / 1024 / 1024 * 100) / 100 + 'MB'
       });
       
-      setProgress('Upload vers Cloudinary...');
+      setProgress('Upload vers Cloudinary');
       
       const formData = new FormData();
       formData.append('file', file);
@@ -93,7 +93,7 @@ export default function CloudinaryUploader({
             {uploading ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Upload...
+                Upload
               </>
             ) : (
               <>

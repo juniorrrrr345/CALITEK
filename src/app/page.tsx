@@ -237,7 +237,7 @@ export default function HomePage() {
 
   // Écran de chargement avec fond de thème de la boutique
   if (loading) {
-    const loadingText = 'Préparation en cours...';
+    const loadingText = 'Préparation en cours';
     return (
       <div className="main-container">
         <div className="global-overlay"></div>
@@ -252,9 +252,15 @@ export default function HomePage() {
                   <div className="absolute inset-0 border-4 border-gray-700 rounded-full"></div>
                   {/* Cercle qui tourne */}
                   <div className="absolute inset-0 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
-                  {/* Espace pour l'image de fond au centre */}
-                  <div className="absolute inset-2 rounded-full bg-gray-800 flex items-center justify-center">
-                    <span className="text-gray-600 text-xs">Logo</span>
+                  {/* Image de fond au centre */}
+                  <div className="absolute inset-2 rounded-full overflow-hidden">
+                    <div 
+                      className="w-full h-full bg-cover bg-center"
+                      style={{ 
+                        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+                        backgroundColor: backgroundImage ? 'transparent' : '#1f2937'
+                      }}
+                    />
                   </div>
                 </div>
               </div>
