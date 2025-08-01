@@ -298,14 +298,14 @@ export default function HomePage() {
               {/* Nouvelle barre de chargement 3D */}
               <div className="mt-8 relative">
                 <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full animate-loading-bar"></div>
+                  <div className="h-full bg-gradient-to-r from-gray-300 via-white to-gray-300 rounded-full animate-loading-bar"></div>
                 </div>
-                <div className="absolute -top-1 left-0 w-full h-4 bg-gradient-to-r from-yellow-400/20 via-orange-500/20 to-red-500/20 blur-xl animate-loading-bar"></div>
+                <div className="absolute -top-1 left-0 w-full h-4 bg-gradient-to-r from-white/20 via-gray-300/20 to-white/20 blur-xl animate-loading-bar"></div>
               </div>
               
               {/* Footer */}
               <div className="text-white text-sm font-medium drop-shadow-md mt-8">
-                <p>© 2025 JUNIOR X JBEL</p>
+                <p>© 2025 CALITEK</p>
               </div>
             </div>
           </div>
