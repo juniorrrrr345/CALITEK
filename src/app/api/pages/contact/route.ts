@@ -15,3 +15,31 @@ export async function GET() {
     return NextResponse.json({ content: '', error: 'Erreur serveur' }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const { content, title } = await request.json();
+    const { db } = await connectToDatabase();
+    
+    const result = await db.collection('pages').replaceOne(
+      { slug: 'contact' },
+      { 
+        slug: 'contact', 
+        title: title || 'Contact', 
+        content: content || '', 
+        updatedAt: new Date() 
+      },
+      { upsert: true }
+    );
+    
+    console.log('✅ Page contact sauvegardée');
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('❌ Erreur API contact POST:', error);
+    return NextResponse.json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Erreur inconnue' 
+    }, { status: 500 });
+  }
+}
