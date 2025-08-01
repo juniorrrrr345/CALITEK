@@ -1,22 +1,37 @@
+'use client';
+import { useState, useEffect } from 'react';
 import InfoPage from '@/components/InfoPage';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
-import { connectToDatabase } from '@/lib/mongodb-fixed';
 
-async function getInfoContent() {
-  try {
-    const { db } = await connectToDatabase();
-    const page = await db.collection('pages').findOne({ slug: 'info' });
-    return page?.content || '';
-  } catch (error) {
-    console.error('Erreur chargement info:', error);
-    return '';
-  }
-}
+export default function InfoPageRoute() {
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(true);
 
-export default async function InfoPageRoute() {
-  // Charger le contenu côté serveur
-  const content = await getInfoContent();
+  // Charger et rafraîchir le contenu
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch('/api/pages/info', { cache: 'no-store' });
+        if (response.ok) {
+          const data = await response.json();
+          setContent(data.content || '');
+        }
+      } catch (error) {
+        console.error('Erreur chargement info:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Charger immédiatement
+    loadContent();
+
+    // Rafraîchir toutes les 2 secondes pour voir les changements instantanément
+    const interval = setInterval(loadContent, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="main-container">
@@ -28,7 +43,13 @@ export default async function InfoPageRoute() {
         <Header />
         <div className="pt-12 sm:pt-14">
           <div className="h-4 sm:h-6"></div>
-          <InfoPage content={content} />
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-white/60">Chargement</p>
+            </div>
+          ) : (
+            <InfoPage content={content} />
+          )}
         </div>
       </div>
       

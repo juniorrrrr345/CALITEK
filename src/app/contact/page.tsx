@@ -1,36 +1,37 @@
+'use client';
+import { useState, useEffect } from 'react';
 import ContactPage from '@/components/ContactPage';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
-import { connectToDatabase } from '@/lib/mongodb-fixed';
 
-async function getContactData() {
-  try {
-    const { db } = await connectToDatabase();
-    
-    const [page, settings, socialLinks] = await Promise.all([
-      db.collection('pages').findOne({ slug: 'contact' }),
-      db.collection('settings').findOne({}),
-      db.collection('socialLinks').find({ isActive: true }).toArray()
-    ]);
-    
-    return {
-      content: page?.content || '',
-      whatsappLink: settings?.whatsappLink || '',
-      socialLinks: socialLinks || []
-    };
-  } catch (error) {
-    console.error('Erreur chargement contact:', error);
-    return {
-      content: '',
-      whatsappLink: '',
-      socialLinks: []
-    };
-  }
-}
+export default function ContactPageRoute() {
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(true);
 
-export default async function ContactPageRoute() {
-  // Charger les données côté serveur
-  const { content, whatsappLink, socialLinks } = await getContactData();
+  // Charger et rafraîchir le contenu
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch('/api/pages/contact', { cache: 'no-store' });
+        if (response.ok) {
+          const data = await response.json();
+          setContent(data.content || '');
+        }
+      } catch (error) {
+        console.error('Erreur chargement contact:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Charger immédiatement
+    loadContent();
+
+    // Rafraîchir toutes les 2 secondes pour voir les changements instantanément
+    const interval = setInterval(loadContent, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="main-container">
@@ -42,11 +43,13 @@ export default async function ContactPageRoute() {
         <Header />
         <div className="pt-12 sm:pt-14">
           <div className="h-4 sm:h-6"></div>
-          <ContactPage 
-            content={content}
-            whatsappLink={whatsappLink}
-            socialLinks={socialLinks}
-          />
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-white/60">Chargement</p>
+            </div>
+          ) : (
+            <ContactPage content={content} />
+          )}
         </div>
       </div>
       
