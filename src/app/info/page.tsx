@@ -14,8 +14,15 @@ export default function InfoPageRoute() {
       try {
         const response = await fetch('/api/pages/info', { cache: 'no-store' });
         if (response.ok) {
-          const data = await response.json();
-          setContent(data.content || '');
+          const text = await response.text();
+          if (text) {
+            try {
+              const data = JSON.parse(text);
+              setContent(data.content || '');
+            } catch (e) {
+              console.error('Erreur parsing JSON:', e);
+            }
+          }
         }
       } catch (error) {
         console.error('Erreur chargement info:', error);

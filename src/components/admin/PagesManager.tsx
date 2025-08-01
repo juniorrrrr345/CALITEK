@@ -93,7 +93,24 @@ export default function PagesManager() {
         })
       });
       
-      const result = await response.json();
+      // Vérifier si la réponse est OK avant de parser le JSON
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      // Vérifier que la réponse n'est pas vide
+      const text = await response.text();
+      if (!text) {
+        throw new Error('Réponse vide du serveur');
+      }
+      
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        console.error('Erreur parsing JSON:', text);
+        throw new Error('Réponse invalide du serveur');
+      }
       
       if (result.success) {
         setSaveStatus('✅ Sauvegardé avec succès !');
