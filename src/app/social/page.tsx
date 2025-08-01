@@ -1,7 +1,8 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
-import { connectToDatabase } from '@/lib/mongodb-fixed';
 
 interface SocialLink {
   _id: string;
@@ -20,31 +21,43 @@ interface Settings {
   whatsappLink: string;
 }
 
-async function getSocialData() {
-  try {
-    const { db } = await connectToDatabase();
-    
-    const [socialLinks, settings] = await Promise.all([
-      db.collection('socialLinks').find({ isActive: true }).toArray(),
-      db.collection('settings').findOne({})
-    ]);
-    
-    return {
-      socialLinks: socialLinks as SocialLink[],
-      settings: settings as Settings | null
-    };
-  } catch (error) {
-    console.error('Erreur chargement social:', error);
-    return {
-      socialLinks: [],
-      settings: null
-    };
-  }
-}
+export default function SocialPage() {
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [settings, setSettings] = useState<Settings | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function SocialPage() {
-  // Charger les données côté serveur
-  const { socialLinks, settings } = await getSocialData();
+  // Charger et rafraîchir les données
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // Charger les liens sociaux
+        const socialRes = await fetch('/api/social-links', { cache: 'no-store' });
+        if (socialRes.ok) {
+          const socialData = await socialRes.json();
+          setSocialLinks(socialData.filter((link: SocialLink) => link.isActive));
+        }
+
+        // Charger les settings
+        const settingsRes = await fetch('/api/settings', { cache: 'no-store' });
+        if (settingsRes.ok) {
+          const settingsData = await settingsRes.json();
+          setSettings(settingsData);
+        }
+      } catch (error) {
+        console.error('Erreur chargement social:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Charger immédiatement
+    loadData();
+
+    // Rafraîchir toutes les 2 secondes pour voir les changements instantanément
+    const interval = setInterval(loadData, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Structure cohérente avec la boutique principale
   return (
@@ -67,11 +80,15 @@ export default async function SocialPage() {
               </h1>
               <div className="w-20 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-4"></div>
               <p className="text-white text-base sm:text-lg max-w-xl mx-auto px-4 font-semibold bg-black/50 backdrop-blur-sm py-2 px-4 rounded-lg">
-                Rejoignez <span className="text-yellow-400">{settings?.shopTitle || 'CALITEK'}</span> sur nos réseaux sociaux
+                Rejoignez <span className="text-yellow-400">{settings?.shopTitle || 'notre boutique'}</span> sur nos réseaux sociaux
               </p>
             </div>
 
-            {socialLinks.length > 0 ? (
+            {loading ? (
+              <div className="text-center py-16">
+                <p className="text-white/60">Chargement</p>
+              </div>
+            ) : socialLinks.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                 {socialLinks.map((link) => (
                   <a
