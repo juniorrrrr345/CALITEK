@@ -305,7 +305,7 @@ export default function HomePage() {
               
               {/* Footer */}
               <div className="text-white text-sm font-medium drop-shadow-md mt-8">
-                <p>© 2025 CALITEK</p>
+                <p>© 2025 JUNIOR X CALITEK</p>
               </div>
             </div>
           </div>
