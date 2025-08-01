@@ -303,15 +303,8 @@ export default function HomePage() {
                 <div className="absolute -top-1 left-0 w-full h-4 bg-gradient-to-r from-yellow-400/20 via-orange-500/20 to-red-500/20 blur-xl animate-loading-bar"></div>
               </div>
               
-              {/* Animation de particules */}
-              <div className="flex justify-center gap-3 mb-8">
-                <div className="w-3 h-3 bg-yellow-400 rounded-full animate-bounce shadow-lg shadow-yellow-400/50" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce shadow-lg shadow-orange-500/50" style={{ animationDelay: '200ms' }}></div>
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-bounce shadow-lg shadow-red-500/50" style={{ animationDelay: '400ms' }}></div>
-              </div>
-              
               {/* Footer */}
-              <div className="text-white text-sm font-medium drop-shadow-md">
+              <div className="text-white text-sm font-medium drop-shadow-md mt-8">
                 <p>© 2025 JUNIOR X JBEL</p>
               </div>
             </div>
@@ -321,11 +314,6 @@ export default function HomePage() {
     );
   }
 
-
-
-
-
-  // Structure avec fond toujours visible
   return (
     <div className="main-container">
       {/* Overlay global toujours présent */}
